@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Persongalleri</title>
+  </head>
+  <body>
+    <h1>Persongalleri</h1>
+    <section>
+      <template>
+        <article>
+          <img src="" alt="" />
+          <h2></h2>
+          <p class="email"></p>
+          <p class="sted"></p>
+        </article>
+      </template>
+    </section>
+    <script>
+      const container = document.querySelector("section");
+      const temp = document.querySelector("template");
+
+      const url = "https://isabellatema7-196e.restdb.io/rest/medlemmer";
+      const key = "61fcf8623f215f310a37be81";
+
+      let data = [];
+
+      const options = {
+        headers: {
+          "x-apikey": key,
+        },
+      };
+
+      async function hentdata() {
+        const respons = await fetch(url, options);
+        const json = await respons.json();
+        vis(json);
+        console.log("her er json");
+      }
+
+      function vis(galleri) {
+        galleri.forEach((person) => {
+          const klon = temp.cloneNode(true).content;
+          klon.querySelector("h2").textContent = person.fornavn;
+          klon.querySelector(".email").textContent = person.email;
+          container.appendChild(klon);
+        });
+      }
+      hentdata();
+    </script>
+  </body>
+</html>

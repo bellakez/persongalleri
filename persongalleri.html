@@ -5,16 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Persongalleri</title>
+    <style>
+      section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+      article {
+        padding: 5px;
+        margin: 5px;
+        border: 1px solid;
+      }
+      img {
+        max-width: 100%;
+      }
+    </style>
   </head>
   <body>
     <h1>Persongalleri</h1>
     <section>
       <template>
         <article>
-          <img src="" alt="" />
           <h2></h2>
+          <h3></h3>          
           <p class="email"></p>
-          <p class="sted"></p>
+          <img src="" alt="" />
         </article>
       </template>
     </section>
@@ -44,7 +58,9 @@
         galleri.forEach((person) => {
           const klon = temp.cloneNode(true).content;
           klon.querySelector("h2").textContent = person.fornavn;
+          klon.querySelector("h2").textContent += " " + person.efternavn;
           klon.querySelector(".email").textContent = person.email;
+          klon.querySelector("img").src = "faces/" + person.profilbilllede;
           container.appendChild(klon);
         });
       }
